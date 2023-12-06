@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- link css -->
+  <link rel="stylesheet" href="css/style.css">
+  <title>Calculadora de Pagos en Cuotas</title>
+</head>
+<body>
+  <h1>Calculadora de Pagos en Cuotas</h1>
+  <label for="monto">Monto:</label>
+  <input type="number" id="monto" min="0">
+  <label for="cuotas">Cuotas:</label>
+  <select id="cuotas">
+    <option value="3">3 cuotas</option>
+    <option value="6">6 cuotas</option>
+    <option value="12">12 cuotas</option>
+    <option value="18">18 cuotas</option>
+    <option value="24">24 cuotas</option>
+  </select>
+  <button onclick="calcularPagos()">Calcular</button>
+  <script src="js/script.js"></script>
+</body>
+</html>
