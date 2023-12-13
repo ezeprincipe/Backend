@@ -1,7 +1,11 @@
 class ProductManager {
-  constructor() {
+  constructor(filePath) {
+    this.path = filePath;
     this.products = [];
     this.productIdCounter = 1;
+
+    // Leer productos desde el archivo al crear una instancia
+    this.loadProductsFromFile();
   }
 
   addProduct(title, description, price, thumbnail, code, stock) {
@@ -30,6 +34,9 @@ class ProductManager {
 
     this.products.push(product);
     console.log(`Producto agregado: ${product.title}`);
+
+    // Después de agregar el producto, guarda el arreglo en el archivo
+    this.saveProductsToFile();
   }
 
   getProducts() {
@@ -46,10 +53,27 @@ class ProductManager {
       return null; // Retorna null en lugar de undefined para consistencia
     }
   }
+
+  loadProductsFromFile() {
+    // Intenta obtener productos desde el almacenamiento local
+    const storedProducts = localStorage.getItem(this.path);
+
+    if (storedProducts) {
+      // Si hay productos almacenados, actualiza el arreglo this.products
+      this.products = JSON.parse(storedProducts);
+      // Actualiza el contador de ID basándose en los productos cargados
+      this.productIdCounter = Math.max(...this.products.map(product => product.id)) + 1;
+    }
+  }
+
+  saveProductsToFile() {
+    // Guarda los productos en el almacenamiento local
+    localStorage.setItem(this.path, JSON.stringify(this.products));
+  }
 }
 
 // Ejemplo de uso con productos diferentes
-const productManager = new ProductManager();
+const productManager = new ProductManager('products');
 
 productManager.addProduct("Tablet", "Tablet ligera para entretenimiento", 300, "tablet.jpg", "TB001", 15);
 productManager.addProduct("Auriculares Bluetooth", "Auriculares inalámbricos con sonido envolvente", 100, "headphones.jpg", "AU002", 30);
