@@ -1,11 +1,10 @@
+const fs = require('fs');
+
 class ProductManager {
   constructor(filePath) {
     this.path = filePath;
-    this.products = [];
-    this.productIdCounter = 1;
-
-    // Leer productos desde el archivo al crear una instancia
-    this.loadProductsFromFile();
+    this.products = this.readFromFile();
+    this.productIdCounter = this.calculateNextId();
   }
 
   addProduct(title, description, price, thumbnail, code, stock) {
@@ -27,16 +26,38 @@ class ProductManager {
       title,
       description,
       price,
-      thumbnail: `images/${thumbnail}`, // Ajusta la ruta de la imagen
+      thumbnail: `assets/${thumbnail}`, // Ajusta la ruta de la imagen
       code,
       stock
     };
 
     this.products.push(product);
+    this.writeToFile();
     console.log(`Producto agregado: ${product.title}`);
+  }
 
-    // Después de agregar el producto, guarda el arreglo en el archivo
-    this.saveProductsToFile();
+  updateProduct(id, updatedFields) {
+    const productIndex = this.products.findIndex(product => product.id === id);
+
+    if (productIndex !== -1) {
+      // Actualizar el producto con los campos proporcionados
+      this.products[productIndex] = { ...this.products[productIndex], ...updatedFields };
+
+      // Guardar el array actualizado en el archivo
+      this.writeToFile();
+      return this.products[productIndex];
+    } else {
+      console.error("Producto no encontrado");
+      return null;
+    }
+  }
+
+  deleteProduct(id) {
+    // Filtrar los productos para excluir el producto con el id especificado
+    this.products = this.products.filter(product => product.id !== id);
+
+    // Guardar el array actualizado en el archivo
+    this.writeToFile();
   }
 
   getProducts() {
@@ -54,31 +75,37 @@ class ProductManager {
     }
   }
 
-  loadProductsFromFile() {
-    // Intenta obtener productos desde el almacenamiento local
-    const storedProducts = localStorage.getItem(this.path);
-
-    if (storedProducts) {
-      // Si hay productos almacenados, actualiza el arreglo this.products
-      this.products = JSON.parse(storedProducts);
-      // Actualiza el contador de ID basándose en los productos cargados
-      this.productIdCounter = Math.max(...this.products.map(product => product.id)) + 1;
+  // Método privado para leer desde el archivo
+  readFromFile() {
+    try {
+      const data = fs.readFileSync(this.path, 'utf-8');
+      return JSON.parse(data) || [];
+    } catch (error) {
+      // Si el archivo no existe o hay un error al leerlo, devolver un array vacío
+      return [];
     }
   }
 
-  saveProductsToFile() {
-    // Guarda los productos en el almacenamiento local
-    localStorage.setItem(this.path, JSON.stringify(this.products));
+  // Método privado para escribir en el archivo
+  writeToFile() {
+    fs.writeFileSync(this.path, JSON.stringify(this.products, null, 2), 'utf-8');
+  }
+
+  // Método privado para calcular el próximo id basado en los productos actuales
+  calculateNextId() {
+    return this.products.reduce((maxId, product) => Math.max(maxId, product.id), 0) + 1;
   }
 }
 
-// Ejemplo de uso con productos diferentes
-const productManager = new ProductManager('products');
+// productos de tecnología
+const productManager = new ProductManager('./products.json');
 
-productManager.addProduct("Tablet", "Tablet ligera para entretenimiento", 300, "tablet.jpg", "TB001", 15);
-productManager.addProduct("Auriculares Bluetooth", "Auriculares inalámbricos con sonido envolvente", 100, "headphones.jpg", "AU002", 30);
-productManager.addProduct("Smartwatch", "Reloj inteligente con seguimiento de actividad", 150, "smartwatch.jpg", "SW003", 20);
+productManager.addProduct("Alienware m15 R4", "Laptop gaming de Alienware con potente rendimiento", 2500, "alienware-laptop.jpg", "ALM001", 10);
+productManager.addProduct("iPhone 13 Pro Max", "Teléfono inteligente de Apple con avanzadas funciones", 1200, "iphone-13-pro-max.jpg", "IP13PM002", 20);
+productManager.addProduct("Samsung Odyssey G7", "Monitor curvo para juegos con resolución QLED", 800, "samsung-odyssey-g7.jpg", "SOC003", 15);
+productManager.addProduct("Sony WH-1000XM4", "Auriculares inalámbricos con cancelación de ruido", 350, "sony-headphones.jpg", "SWH004", 25);
+productManager.addProduct("LG OLED C1", "Smart TV 4K OLED con funciones inteligentes", 1800, "lg-oled-c1.jpg", "LGTV005", 12);
 
 console.log(productManager.getProducts());
 console.log(productManager.getProductById(1));
-console.log(productManager.getProductById(4)); // Debería mostrar "Producto no encontrado"
+console.log(productManager.getProductById(6)); // Debería mostrar "Producto no encontrado"
