@@ -3,7 +3,7 @@ const fs = require('fs');
 class ProductManager {
   constructor(filePath) {
     this.path = filePath;
-    this.products = this.readFromFile();
+    this.products = this.readFromFile() || []; // Llamar al array vacío si no se lee correctamente
     this.productIdCounter = this.calculateNextId();
   }
 
@@ -45,6 +45,7 @@ class ProductManager {
 
       // Guardar el array actualizado en el archivo
       this.writeToFile();
+      console.log(`Producto actualizado con éxito: ${this.products[productIndex].title}`);
       return this.products[productIndex];
     } else {
       console.error("Producto no encontrado");
@@ -53,11 +54,18 @@ class ProductManager {
   }
 
   deleteProduct(id) {
+    const initialLength = this.products.length;
+
     // Filtrar los productos para excluir el producto con el id especificado
     this.products = this.products.filter(product => product.id !== id);
 
-    // Guardar el array actualizado en el archivo
-    this.writeToFile();
+    if (this.products.length < initialLength) {
+      // Solo guardar si se eliminó un producto
+      this.writeToFile();
+      console.log("Producto eliminado correctamente");
+    } else {
+      console.error("No se encontró un producto con ese ID");
+    }
   }
 
   getProducts() {
@@ -79,10 +87,10 @@ class ProductManager {
   readFromFile() {
     try {
       const data = fs.readFileSync(this.path, 'utf-8');
-      return JSON.parse(data) || [];
+      return JSON.parse(data);
     } catch (error) {
-      // Si el archivo no existe o hay un error al leerlo, devolver un array vacío
-      return [];
+      // Si el archivo no existe o hay un error al leerlo, devolver null
+      return null;
     }
   }
 
@@ -109,3 +117,7 @@ productManager.addProduct("LG OLED C1", "Smart TV 4K OLED con funciones intelige
 console.log(productManager.getProducts());
 console.log(productManager.getProductById(1));
 console.log(productManager.getProductById(6)); // Debería mostrar "Producto no encontrado"
+productManager.updateProduct(1, { price: 2600, stock: 15 });
+productManager.deleteProduct(3);
+console.log(productManager.getProducts());
+module.exports = ProductManager;

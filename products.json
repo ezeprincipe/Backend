@@ -3,10 +3,10 @@
     "id": 1,
     "title": "Alienware m15 R4",
     "description": "Laptop gaming de Alienware con potente rendimiento",
-    "price": 2500,
+    "price": 2600,
     "thumbnail": "assets/alienware-laptop.jpg",
     "code": "ALM001",
-    "stock": 10
+    "stock": 15
   },
   {
     "id": 2,
@@ -16,15 +16,6 @@
     "thumbnail": "assets/iphone-13-pro-max.jpg",
     "code": "IP13PM002",
     "stock": 20
-  },
-  {
-    "id": 3,
-    "title": "Samsung Odyssey G7",
-    "description": "Monitor curvo para juegos con resolución QLED",
-    "price": 800,
-    "thumbnail": "assets/samsung-odyssey-g7.jpg",
-    "code": "SOC003",
-    "stock": 15
   },
   {
     "id": 4,
@@ -43,5 +34,14 @@
     "thumbnail": "assets/lg-oled-c1.jpg",
     "code": "LGTV005",
     "stock": 12
+  },
+  {
+    "id": 6,
+    "title": "Samsung Odyssey G7",
+    "description": "Monitor curvo para juegos con resolución QLED",
+    "price": 800,
+    "thumbnail": "assets/samsung-odyssey-g7.jpg",
+    "code": "SOC003",
+    "stock": 15
   }
 ]
