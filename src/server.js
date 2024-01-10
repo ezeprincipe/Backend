@@ -1,13 +1,22 @@
+// En server.js
 const express = require('express');
-const ProductManager = require('./ProductManager'); // Ajusta la ruta según tu estructura de archivos
-
 const app = express();
-const port = 3000; // Puedes cambiar el puerto según tus necesidades
+const port = 8080;
+const productsRouter = require('./routes/products.router');
+const cartsRouter = require("./routes/carts.router.js")
 
-const productManager = new ProductManager('../products.json');
 
-// Middleware para parsear JSON en las solicitudes
+// Middleware
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+
+// Instancia de ProductManager
+const ProductManager = require('./controllers/ProductManager.js');
+const productManager = new ProductManager('./src/models/productos.json');
+
+// Rutas
+app.use('/api', productsRouter);
+app.use("/api",cartsRouter)
 
 // Ruta principal con un mensaje específico
 app.get('/', (req, res) => {
@@ -26,7 +35,7 @@ app.get('/products', async (req, res) => {
 app.get('/products/:pid', async (req, res) => {
   const productId = parseInt(req.params.pid);
   const product = await productManager.getProductById(productId);
-  
+
   if (product) {
     res.json(product);
   } else {
