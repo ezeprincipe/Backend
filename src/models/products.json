@@ -6,7 +6,9 @@
     "price": 2600,
     "thumbnail": "assets/alienware-laptop.jpg",
     "code": "ALM001",
-    "stock": 15
+    "stock": 15,
+    "category": "Tecnológicos",
+    "status": "Disponible"
   },
   {
     "id": 2,
@@ -15,78 +17,107 @@
     "price": 1200,
     "thumbnail": "assets/iphone-13-pro-max.jpg",
     "code": "IP13PM002",
-    "stock": 20
+    "stock": 20,
+    "category": "Tecnológicos",
+    "status": "Disponible"
+  },
+  {
+    "id": 3,
+    "title": "Portátil XYZ",
+    "description": "Portátil potente para trabajo y entretenimiento",
+    "price": 1500,
+    "thumbnail": "assets/portatil-xyz.jpg",
+    "code": "PTLXYZ003",
+    "stock": 12,
+    "category": "Tecnológicos",
+    "status": "Disponible"
   },
   {
     "id": 4,
-    "title": "Sony WH-1000XM4",
-    "description": "Auriculares inalámbricos con cancelación de ruido",
-    "price": 350,
-    "thumbnail": "assets/sony-headphones.jpg",
-    "code": "SWH004",
-    "stock": 25
+    "title": "Cámara Digital Pro",
+    "description": "Cámara profesional para capturar momentos especiales",
+    "price": 800,
+    "thumbnail": "assets/camara-digital-pro.jpg",
+    "code": "CAMPRO004",
+    "stock": 18,
+    "category": "Tecnológicos",
+    "status": "Disponible"
   },
   {
     "id": 5,
-    "title": "LG OLED C1",
-    "description": "Smart TV 4K OLED con funciones inteligentes",
-    "price": 1800,
-    "thumbnail": "assets/lg-oled-c1.jpg",
-    "code": "LGTV005",
-    "stock": 12
+    "title": "Auriculares Inalámbricos HD",
+    "description": "Auriculares de alta calidad para una experiencia de audio excepcional",
+    "price": 200,
+    "thumbnail": "assets/auriculares-inalambricos-hd.jpg",
+    "code": "AIHD005",
+    "stock": 25,
+    "category": "Tecnológicos",
+    "status": "Disponible"
   },
   {
     "id": 6,
-    "title": "Samsung Odyssey G7",
-    "description": "Monitor curvo para juegos con resolución QLED",
-    "price": 800,
-    "thumbnail": "assets/samsung-odyssey-g7.jpg",
-    "code": "SOC003",
-    "stock": 15
+    "title": "Smartwatch Avanzado",
+    "description": "Smartwatch con funciones avanzadas de seguimiento y notificaciones",
+    "price": 300,
+    "thumbnail": "assets/smartwatch-avanzado.jpg",
+    "code": "SWAV006",
+    "stock": 15,
+    "category": "Tecnológicos",
+    "status": "Disponible"
   },
   {
     "id": 7,
-    "title": "Nest Learning Thermostat",
-    "description": "Termostato inteligente que aprende tus preferencias de temperatura",
-    "price": 250,
-    "thumbnail": "assets/nest-thermostat.jpg",
-    "code": "NT001",
-    "stock": 30
+    "title": "Teclado Mecánico RGB",
+    "description": "Teclado mecánico con retroiluminación RGB para jugadores y profesionales",
+    "price": 150,
+    "thumbnail": "assets/teclado-mecanico-rgb.jpg",
+    "code": "TMRGB007",
+    "stock": 30,
+    "category": "Tecnológicos",
+    "status": "Disponible"
   },
   {
     "id": 8,
-    "title": "DJI Mavic Air 2",
-    "description": "Drone con cámara de alta calidad y funciones avanzadas de vuelo",
-    "price": 1200,
-    "thumbnail": "assets/dji-mavic-air-2.jpg",
-    "code": "DJIMA2",
-    "stock": 8
+    "title": "Monitor Ultra HD",
+    "description": "Monitor de alta resolución para una experiencia visual inmersiva",
+    "price": 500,
+    "thumbnail": "assets/monitor-ultra-hd.jpg",
+    "code": "MUHD008",
+    "stock": 10,
+    "category": "Tecnológicos",
+    "status": "Disponible"
   },
   {
     "id": 9,
-    "title": "August Smart Lock Pro",
-    "description": "Cerradura inteligente con control remoto y capacidad de integración",
-    "price": 300,
-    "thumbnail": "assets/august-smart-lock-pro.jpg",
-    "code": "ASLP001",
-    "stock": 15
+    "title": "Impresora 3D Profesional",
+    "description": "Impresora 3D para proyectos profesionales y creativos",
+    "price": 1000,
+    "thumbnail": "assets/impresora-3d-profesional.jpg",
+    "code": "I3DPF009",
+    "stock": 20,
+    "category": "Tecnológicos",
+    "status": "Disponible"
   },
   {
     "id": 10,
-    "title": "Eero Pro 6",
-    "description": "Sistema de malla WiFi 6 para una cobertura de red rápida y confiable",
-    "price": 400,
-    "thumbnail": "assets/eero-pro-6.jpg",
-    "code": "EP6",
-    "stock": 20
+    "title": "Router Wi-Fi de Alta Velocidad",
+    "description": "Router avanzado para una conexión a Internet rápida y estable",
+    "price": 120,
+    "thumbnail": "assets/router-wifi-alta-velocidad.jpg",
+    "code": "RWAV010",
+    "stock": 15,
+    "category": "Tecnológicos",
+    "status": "Disponible"
   },
   {
     "id": 11,
-    "title": "Garmin Forerunner 945",
-    "description": "Reloj deportivo GPS con funciones avanzadas para entrenamiento",
-    "price": 600,
-    "thumbnail": "assets/garmin-forerunner-945.jpg",
-    "code": "GF945",
-    "stock": 10
+    "title": "Altavoces Bluetooth Potentes",
+    "description": "Altavoces portátiles con calidad de sonido excepcional",
+    "price": 180,
+    "thumbnail": "assets/altavoces-bluetooth-potentes.jpg",
+    "code": "ABP011",
+    "stock": 10,
+    "category": "Tecnológicos",
+    "status": "Disponible"
   }
 ]

@@ -1,92 +1,23 @@
 [
   {
     "id": 1,
-    "title": "Alienware m15 R4",
-    "description": "Laptop gaming de Alienware con potente rendimiento",
-    "price": 2600,
-    "thumbnail": "assets/alienware-laptop.jpg",
-    "code": "ALM001",
-    "stock": 15
+    "products": [
+      {"id": 2, "quantity": 3},
+      {"id": 4, "quantity": 1}
+    ]
   },
   {
     "id": 2,
-    "title": "iPhone 13 Pro Max",
-    "description": "Teléfono inteligente de Apple con avanzadas funciones",
-    "price": 1200,
-    "thumbnail": "assets/iphone-13-pro-max.jpg",
-    "code": "IP13PM002",
-    "stock": 20
+    "products": [
+      {"id": 1, "quantity": 2},
+      {"id": 5, "quantity": 1}
+    ]
   },
   {
-    "id": 4,
-    "title": "Sony WH-1000XM4",
-    "description": "Auriculares inalámbricos con cancelación de ruido",
-    "price": 350,
-    "thumbnail": "assets/sony-headphones.jpg",
-    "code": "SWH004",
-    "stock": 25
-  },
-  {
-    "id": 5,
-    "title": "LG OLED C1",
-    "description": "Smart TV 4K OLED con funciones inteligentes",
-    "price": 1800,
-    "thumbnail": "assets/lg-oled-c1.jpg",
-    "code": "LGTV005",
-    "stock": 12
-  },
-  {
-    "id": 6,
-    "title": "Samsung Odyssey G7",
-    "description": "Monitor curvo para juegos con resolución QLED",
-    "price": 800,
-    "thumbnail": "assets/samsung-odyssey-g7.jpg",
-    "code": "SOC003",
-    "stock": 15
-  },
-  {
-    "id": 7,
-    "title": "Nest Learning Thermostat",
-    "description": "Termostato inteligente que aprende tus preferencias de temperatura",
-    "price": 250,
-    "thumbnail": "assets/nest-thermostat.jpg",
-    "code": "NT001",
-    "stock": 30
-  },
-  {
-    "id": 8,
-    "title": "DJI Mavic Air 2",
-    "description": "Drone con cámara de alta calidad y funciones avanzadas de vuelo",
-    "price": 1200,
-    "thumbnail": "assets/dji-mavic-air-2.jpg",
-    "code": "DJIMA2",
-    "stock": 8
-  },
-  {
-    "id": 9,
-    "title": "August Smart Lock Pro",
-    "description": "Cerradura inteligente con control remoto y capacidad de integración",
-    "price": 300,
-    "thumbnail": "assets/august-smart-lock-pro.jpg",
-    "code": "ASLP001",
-    "stock": 15
-  },
-  {
-    "id": 10,
-    "title": "Eero Pro 6",
-    "description": "Sistema de malla WiFi 6 para una cobertura de red rápida y confiable",
-    "price": 400,
-    "thumbnail": "assets/eero-pro-6.jpg",
-    "code": "EP6",
-    "stock": 20
-  },
-  {
-    "id": 11,
-    "title": "Garmin Forerunner 945",
-    "description": "Reloj deportivo GPS con funciones avanzadas para entrenamiento",
-    "price": 600,
-    "thumbnail": "assets/garmin-forerunner-945.jpg",
-    "code": "GF945",
-    "stock": 10
+    "id": 3,
+    "products": [
+      {"id": 3, "quantity": 1},
+      {"id": 6, "quantity": 2}
+    ]
   }
 ]
