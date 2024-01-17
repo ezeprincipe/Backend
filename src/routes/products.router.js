@@ -6,8 +6,8 @@ const productManager = new ProductManager('./src/models/products.json');
 
 // Rutas:
 
-// Ruta para agregar un nuevo producto
-router.post('/', async (req, res) => {
+// Ruta para agregar un nuevo producto al carrito
+router.post('/add', async (req, res) => {
   try {
     const nuevoProducto = req.body;
     const productoAgregado = await productManager.addProduct(nuevoProducto);

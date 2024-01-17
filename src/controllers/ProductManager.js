@@ -1,73 +1,111 @@
-const fs = require('fs');
+// ProductManager.js
+const fs = require('fs').promises;
 
 class ProductManager {
-  constructor(filePath) {
+  static ultId = 0;
+
+  constructor(filePath, io) {
     this.path = filePath;
-    this.products = this.readFromFile() || [];
-    this.productIdCounter = this.calculateNextId();
+    this.products = [];
+    this.io = io;  // Agrega io como propiedad
   }
 
-  addProduct(newProduct) {
-    if (!newProduct.title || !newProduct.description || !newProduct.price || !newProduct.thumbnail || !newProduct.code || !newProduct.stock) {
-      console.error("Todos los campos son obligatorios");
-      return null;
-    }
+  async addProduct(newProduct) {
+    try {
+      const arrayProductos = await this.readFromFile();
 
-    if (this.products.some(product => product.code === newProduct.code)) {
-      console.error("El código del producto ya existe");
-      return null;
-    }
+      if (!newProduct.title || !newProduct.description || !newProduct.price || !newProduct.code || !newProduct.stock) {
+        console.error("Todos los campos son obligatorios");
+        return;
+      }
 
-    const product = {
-      id: this.productIdCounter++,
-      ...newProduct,
-      thumbnail: `assets/${newProduct.thumbnail}`,
-    };
+      if (arrayProductos.some(product => product.code === newProduct.code)) {
+        console.error("El código del producto ya existe");
+        return;
+      }
 
-    this.products.push(product);
-    this.writeToFile();
-    console.log(`Producto agregado: ${product.title}`);
-    return product;
-  }
+      const product = {
+        id: ++ProductManager.ultId,
+        ...newProduct,
+        thumbnail: `assets/${newProduct.thumbnail}`,
+      };
 
-  updateProduct(id, updatedFields) {
-    const productIndex = this.products.findIndex(product => product.id === id);
+      arrayProductos.push(product);
+      await this.writeToFile(arrayProductos);
+      console.log(`Producto agregado: ${product.title}`);
 
-    if (productIndex !== -1) {
-      this.products[productIndex] = { ...this.products[productIndex], ...updatedFields };
-      this.writeToFile();
-      console.log(`Producto actualizado con éxito: ${this.products[productIndex].title}`);
-      return this.products[productIndex];
-    } else {
-      console.error("Producto no encontrado");
-      return null;
-    }
-  }
+      // Emitir evento socket cuando se agrega un nuevo producto
+      this.io.emit('productAdded', product);
 
-  deleteProduct(id) {
-    const initialLength = this.products.length;
-    this.products = this.products.filter(product => product.id !== id);
-
-    if (this.products.length < initialLength) {
-      this.writeToFile();
-      console.log("Producto eliminado correctamente");
-    } else {
-      console.error("No se encontró un producto con ese ID");
-    }
-  }
-
-  getProducts() {
-    return this.products;
-  }
-
-  getProductById(id) {
-    const product = this.products.find(product => product.id === id);
-
-    if (product) {
       return product;
-    } else {
-      console.error("Producto no encontrado");
-      return null;
+    } catch (error) {
+      console.error('Error al agregar producto', error);
+      throw error;
+    }
+  }
+
+  async updateProduct(id, updatedFields) {
+    try {
+      const arrayProductos = await this.readFromFile();
+      const productIndex = arrayProductos.findIndex(product => product.id === id);
+
+      if (productIndex !== -1) {
+        arrayProductos[productIndex] = { ...arrayProductos[productIndex], ...updatedFields };
+        await this.writeToFile(arrayProductos);
+        console.log(`Producto actualizado con éxito: ${arrayProductos[productIndex].title}`);
+        return arrayProductos[productIndex];
+      } else {
+        console.error("Producto no encontrado");
+        return null;
+      }
+    } catch (error) {
+      console.error('Error al actualizar producto', error);
+      throw error;
+    }
+  }
+
+  async deleteProduct(id) {
+    try {
+      const arrayProductos = await this.readFromFile();
+      const initialLength = arrayProductos.length;
+
+      this.products = arrayProductos.filter(product => product.id !== id);
+
+      if (arrayProductos.length < initialLength) {
+        await this.writeToFile(arrayProductos);
+        console.log("Producto eliminado correctamente");
+      } else {
+        console.error("No se encontró un producto con ese ID");
+      }
+    } catch (error) {
+      console.error('Error al eliminar producto', error);
+      throw error;
+    }
+  }
+
+  async getProducts() {
+    try {
+      return await this.readFromFile();
+    } catch (error) {
+      console.error('Error al obtener productos', error);
+      throw error;
+    }
+  }
+
+  async getProductById(id) {
+    try {
+      const arrayProductos = await this.readFromFile();
+      const product = arrayProductos.find(product => product.id === id);
+
+      if (product) {
+        return product;
+      } else {
+        console.error("Producto no encontrado");
+        return null;
+      }
+    } catch (error) {
+      console.error('Error al obtener producto por ID', error);
+      throw error;
     }
   }
 
@@ -81,20 +119,26 @@ class ProductManager {
     }
   }
 
-  readFromFile() {
+  async readFromFile() {
     try {
-      const data = fs.readFileSync(this.path, 'utf-8');
+      const data = await fs.readFile(this.path, 'utf-8');
       return JSON.parse(data);
     } catch (error) {
-      return null;
+      return [];
     }
   }
 
-  writeToFile() {
-    fs.writeFileSync(this.path, JSON.stringify(this.products, null, 2), 'utf-8');
+  async writeToFile(data) {
+    try {
+      await fs.writeFile(this.path, JSON.stringify(data, null, 2), 'utf-8');
+    } catch (error) {
+      console.error('Error al escribir en el archivo', error);
+      throw error;
+    }
   }
 
   calculateNextId() {
+    // No cambió este método, ya que no involucra operaciones asíncronas.
     return this.products.reduce((maxId, product) => Math.max(maxId, product.id), 0) + 1;
   }
 }
