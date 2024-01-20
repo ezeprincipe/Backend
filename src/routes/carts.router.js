@@ -1,40 +1,41 @@
-// carts.router.js
 
 const express = require("express");
 const router = express.Router();
-const CartManager = require('../managers/CartManager'); 
+const CartManager = require('../controllers/CartManager'); 
 const cartManager = new CartManager('./src/models/carrito.json');
 
-// Obtener IDs de productos en el carrito
+// Get product IDs in the cart
 router.get("/", async (req, res) => {
     try {
         const cartIds = await cartManager.getCartProductIds();
         res.json(cartIds);
     } catch (error) {
-        console.error("Error al obtener IDs del carrito");
-        res.status(500).json({ error: "Error del servidor al obtener IDs del carrito" });
+        console.error("Error retrieving cart IDs");
+        res.status(500).json({ error: "Server error retrieving cart IDs" });
     }
 });
 
-// Agregar producto al carrito
-router.post("/add", async (req, res) => {
+// Add product to the cart
+router.post("/:cid/product/:pid", async (req, res) => {
     try {
-        const { productId, quantity } = req.body;
+        const { cid, pid } = req.params;
+        const { quantity } = req.body;
 
-        // Validar que se proporcionaron productId y quantity en el cuerpo de la solicitud
-        if (!productId || !quantity) {
-            res.status(400).json({ error: "productId y quantity son campos obligatorios" });
+        // Validate that quantity was provided in the request body
+        if (!quantity || isNaN(quantity) || quantity <= 0) {
+            res.status(400).json({ error:"Quantity is a required field and must be a positive number." });
             return;
         }
 
-        // Agregar algunos registros de consola para depurar
-        console.log('Solicitud recibida para agregar producto al carrito:');
-        console.log('Carrito ID:', req.params.cartId);
-        console.log('Producto ID:', productId);
-        console.log('Cantidad:', quantity);
+        // Add some console logs for debugging
+        console.log('Request received to add product to the cart:');
+        console.log('Cart ID:', cid);
+        console.log('Product ID:', pid);
+        console.log('Quantity:', quantity);
 
-        // Agregar producto al carrito
-        const result = await cartManager.addToCart(productId, quantity);
+
+          // Add product to the cart
+        const result = await cartManager.addToCart(parseInt(pid), parseInt(quantity), parseInt(cid));
 
         if (result.success) {
             res.status(201).json({ mensaje: result.message });
@@ -42,23 +43,23 @@ router.post("/add", async (req, res) => {
             res.status(404).json({ error: result.message });
         }
     } catch (error) {
-        console.error("Error al agregar producto al carrito:", error);
-        res.status(500).json({ error: "Error del servidor al agregar producto al carrito" });
+        console.error("Error adding product to the cart:", error);
+        res.status(500).json({ error: "Server error adding product to the cart" });
     }
 });
 
-// Crear un nuevo carrito
+// Create a new cart
 router.post("/create", async (req, res) => {
     try {
         const newCart = await cartManager.createCart();
-        res.status(201).json({ mensaje: 'Nuevo carrito creado', cartId: newCart.id });
+        res.status(201).json({ mensaje: 'New cart created', cartId: newCart.id });
     } catch (error) {
-        console.error("Error al crear un nuevo carrito:", error);
-        res.status(500).json({ error: "Error del servidor al crear un nuevo carrito" });
+        console.error("Error creating a new cart:", error);
+        res.status(500).json({ error: "Server error creating a new cart" });
     }
 });
 
-// Obtener un carrito por su ID
+// Get a cart by its ID
 router.get("/:cartId", async (req, res) => {
     try {
         const cartId = req.params.cartId;
@@ -67,11 +68,11 @@ router.get("/:cartId", async (req, res) => {
         if (cartProducts) {
             res.json(cartProducts);
         } else {
-            res.status(404).json({ error: 'Carrito no encontrado' });
+            res.status(404).json({ error: 'Cart not found' });
         }
     } catch (error) {
-        console.error("Error al obtener un carrito por su ID:", error);
-        res.status(500).json({ error: "Error del servidor al obtener un carrito por su ID" });
+        console.error("Error getting a cart by its ID:", error);
+        res.status(500).json({ error: "Server error getting a cart by its ID" });
     }
 });
 

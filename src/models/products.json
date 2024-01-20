@@ -2,122 +2,122 @@
   {
     "id": 1,
     "title": "Alienware m15 R4",
-    "description": "Laptop gaming de Alienware con potente rendimiento",
+    "description": "Gaming laptop from Alienware with powerful performance",
     "price": 2600,
     "thumbnail": "assets/alienware-laptop.jpg",
     "code": "ALM001",
     "stock": 15,
-    "category": "Tecnológicos",
-    "status": "Disponible"
+    "category": "Electronics",
+    "status": "Available"
   },
   {
     "id": 2,
     "title": "iPhone 13 Pro Max",
-    "description": "Teléfono inteligente de Apple con avanzadas funciones",
+    "description": "Apple smartphone with advanced features",
     "price": 1200,
     "thumbnail": "assets/iphone-13-pro-max.jpg",
     "code": "IP13PM002",
     "stock": 20,
-    "category": "Tecnológicos",
-    "status": "Disponible"
+    "category": "Electronics",
+    "status": "Available"
   },
   {
     "id": 3,
-    "title": "Portátil XYZ",
-    "description": "Portátil potente para trabajo y entretenimiento",
+    "title": "XYZ Laptop",
+    "description": "Powerful laptop for work and entertainment",
     "price": 1500,
     "thumbnail": "assets/portatil-xyz.jpg",
     "code": "PTLXYZ003",
     "stock": 12,
-    "category": "Tecnológicos",
-    "status": "Disponible"
+    "category": "Electronics",
+    "status": "Available"
   },
   {
     "id": 4,
-    "title": "Cámara Digital Pro",
-    "description": "Cámara profesional para capturar momentos especiales",
+    "title": "Pro Digital Camera",
+    "description": "Professional camera for capturing special moments",
     "price": 800,
     "thumbnail": "assets/camara-digital-pro.jpg",
     "code": "CAMPRO004",
     "stock": 18,
-    "category": "Tecnológicos",
-    "status": "Disponible"
+    "category": "Electronics",
+    "status": "Available"
   },
   {
     "id": 5,
-    "title": "Auriculares Inalámbricos HD",
-    "description": "Auriculares de alta calidad para una experiencia de audio excepcional",
+    "title": "HD Wireless Headphones",
+    "description": "High-quality headphones for an exceptional audio experience",
     "price": 200,
     "thumbnail": "assets/auriculares-inalambricos-hd.jpg",
     "code": "AIHD005",
     "stock": 25,
-    "category": "Tecnológicos",
-    "status": "Disponible"
+    "category": "Electronics",
+    "status": "Available"
   },
   {
     "id": 6,
-    "title": "Smartwatch Avanzado",
-    "description": "Smartwatch con funciones avanzadas de seguimiento y notificaciones",
+    "title": "Advanced Smartwatch",
+    "description": "Smartwatch with advanced tracking and notification features",
     "price": 300,
     "thumbnail": "assets/smartwatch-avanzado.jpg",
     "code": "SWAV006",
     "stock": 15,
-    "category": "Tecnológicos",
-    "status": "Disponible"
+    "category": "Electronics",
+    "status": "Available"
   },
   {
     "id": 7,
-    "title": "Teclado Mecánico RGB",
-    "description": "Teclado mecánico con retroiluminación RGB para jugadores y profesionales",
+    "title": "RGB Mechanical Keyboard",
+    "description": "Mechanical keyboard with RGB backlighting for gamers and professionals",
     "price": 150,
     "thumbnail": "assets/teclado-mecanico-rgb.jpg",
     "code": "TMRGB007",
     "stock": 30,
-    "category": "Tecnológicos",
-    "status": "Disponible"
+    "category": "Electronics",
+    "status": "Available"
   },
   {
     "id": 8,
-    "title": "Monitor Ultra HD",
-    "description": "Monitor de alta resolución para una experiencia visual inmersiva",
+    "title": "Ultra HD Monitor",
+    "description": "High-resolution monitor for an immersive visual experience",
     "price": 500,
     "thumbnail": "assets/monitor-ultra-hd.jpg",
     "code": "MUHD008",
     "stock": 10,
-    "category": "Tecnológicos",
-    "status": "Disponible"
+    "category": "Electronics",
+    "status": "Available"
   },
   {
     "id": 9,
-    "title": "Impresora 3D Profesional",
-    "description": "Impresora 3D para proyectos profesionales y creativos",
+    "title": "Professional 3D Printer",
+    "description": "3D printer for professional and creative projects",
     "price": 1000,
     "thumbnail": "assets/impresora-3d-profesional.jpg",
     "code": "I3DPF009",
     "stock": 20,
-    "category": "Tecnológicos",
-    "status": "Disponible"
+    "category": "Electronics",
+    "status": "Available"
   },
   {
     "id": 10,
-    "title": "Router Wi-Fi de Alta Velocidad",
-    "description": "Router avanzado para una conexión a Internet rápida y estable",
+    "title": "High-Speed Wi-Fi Router",
+    "description": "Advanced router for fast and stable internet connection",
     "price": 120,
     "thumbnail": "assets/router-wifi-alta-velocidad.jpg",
     "code": "RWAV010",
     "stock": 15,
-    "category": "Tecnológicos",
-    "status": "Disponible"
+    "category": "Electronics",
+    "status": "Available"
   },
   {
     "id": 11,
-    "title": "Altavoces Bluetooth Potentes",
-    "description": "Altavoces portátiles con calidad de sonido excepcional",
+    "title": "Powerful Bluetooth Speakers",
+    "description": "Portable speakers with exceptional sound quality",
     "price": 180,
     "thumbnail": "assets/altavoces-bluetooth-potentes.jpg",
     "code": "ABP011",
     "stock": 10,
-    "category": "Tecnológicos",
-    "status": "Disponible"
+    "category": "Electronics",
+    "status": "Available"
   }
 ]

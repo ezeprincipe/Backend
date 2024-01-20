@@ -5,14 +5,14 @@ const exphbs = require('express-handlebars');
 const path = require('path');
 const productsRouter = require('./routes/products.router');
 const cartsRouter = require('./routes/carts.router');
-const CartManager = require('./managers/CartManager');
-const ProductManager = require('./controllers/ProductManager');  // Importa ProductManager
+const CartManager = require('./controllers/CartManager');
+const ProductManager = require('./controllers/ProductManager');
 
 const app = express();
 const server = http.createServer(app);
 const io = socketIo(server);
 
-// Configurar el motor de vistas Handlebars
+// Configure Handlebars view engine
 app.engine(
   'handlebars',
   exphbs({
@@ -26,57 +26,57 @@ app.set('views', path.join(__dirname, 'views'));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-// Middleware para servir archivos estáticos
+// Static files middleware
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Instancias de managers
-const cartManager = new CartManager('./src/models/carrito.json');
-const productManager = new ProductManager('./src/models/products.json', io);   // Instancia de ProductManager
+// Manager instances
+const productManager = new ProductManager('./src/models/products.json', io);
+const cartManager = new CartManager('./src/models/cart.json', productManager);
 
-// Rutas de productos
+// Product routes
 app.use('/api/products', productsRouter);
 
-// Rutas de carritos
+// Cart routes
 app.use('/api/carts', cartsRouter);
 
-// Configurar eventos socket
+// Configure socket events
 io.on('connection', (socket) => {
-  console.log('Usuario conectado');
+  console.log('User connected');
 
-  // Configurar eventos socket aquí
+  // Configure socket events here
 
-  // Por ejemplo, enviar un mensaje al cliente cuando se conecta
-  socket.emit('message', '¡Bienvenido!');
+  // For example, send a message to the client on connection
+  socket.emit('message', 'Welcome!');
 
-  // Escuchar eventos del cliente
+  // Listen to client events
   socket.on('clientEvent', (data) => {
-    console.log('Evento del cliente:', data);
+    console.log('Client event:', data);
   });
 });
 
-// Ruta principal con un mensaje específico
+// Main route with a specific message
 app.get('/', async (req, res) => {
   try {
-    // Lógica para obtener datos necesarios para la página de inicio
+    // Logic to get data needed for the home page
     const products = await productManager.getProducts();
 
-    // Renderizar la vista 'index' y pasar los datos necesarios
-    res.render('index', { pageTitle: 'Inicio', products });
+    // Render the 'index' view and pass the necessary data
+    res.render('index', { pageTitle: 'Home', products });
   } catch (error) {
-    console.error("Error al obtener productos", error);
+    console.error("Error fetching products", error);
     res.status(500).json({
-      error: "Error interno del servidor"
+      error: "Internal server error"
     });
   }
 });
 
-// Ruta que renderiza la vista con Socket.IO
+// Route rendering the view with Socket.IO
 app.get('/realtime', (req, res) => {
   res.render('realtime');
 });
 
-// Iniciar el servidor
+// Start the server
 const PORT = process.env.PORT || 8080;
 server.listen(PORT, () => {
-  console.log(`Servidor iniciado en http://localhost:${PORT}`);
+  console.log(`Server started at http://localhost:${PORT}`);
 });

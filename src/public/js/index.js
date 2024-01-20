@@ -1,49 +1,46 @@
 const socket = io();
 
-socket.on("productos", (data) => {
-    renderProductos(data);
-}); 
+socket.on("products", (data) => {
+    renderProducts(data);
+});
 
-//Función para renderizar la tabla de productos:
-const renderProductos = (productos) => {
-    const contenedorProductos = document.getElementById("contenedorProductos");
-    contenedorProductos.innerHTML = "";
+// Function to render the products table:
+const renderProducts = (products) => {
+    const productsContainer = document.getElementById("productsContainer");
+    productsContainer.innerHTML = "";
 
-
-    productos.forEach(item => {
+    products.forEach(item => {
         const card = document.createElement("div");
         card.classList.add("card");
-        //Agregamos boton para eliminar: 
+        // Add button to delete product:
         card.innerHTML = `
                 <p>Id ${item.id} </p>
-                <p>Titulo ${item.title} </p>
-                <p>Precio ${item.price} </p>
-                <button> Eliminar Producto </button>
-        
+                <p>Title ${item.title} </p>
+                <p>Price ${item.price} </p>
+                <button> Delete Product </button>
         `;
-        contenedorProductos.appendChild(card);
+        productsContainer.appendChild(card);
 
-        //Agregamos el evento eliminar producto:
+        // Add delete product event:
         card.querySelector("button").addEventListener("click", () => {
-            eliminarProducto(item.id);
+            deleteProduct(item.id);
         });
     });
 }
 
-//Eliminar producto: 
-const eliminarProducto = (id) => {
-    socket.emit("eliminarProducto", id);
+// Delete product function:
+const deleteProduct = (id) => {
+    socket.emit("deleteProduct", id);
 }
 
-//Agregar producto:
+// Add product:
 
-document.getElementById("btnEnviar").addEventListener("click", () => {
-    agregarProducto();
+document.getElementById("btnSend").addEventListener("click", () => {
+    addProduct();
 });
 
-
-const agregarProducto = () => {
-    const producto = {
+const addProduct = () => {
+    const product = {
         title: document.getElementById("title").value,
         description: document.getElementById("description").value,
         price: document.getElementById("price").value,
@@ -53,6 +50,6 @@ const agregarProducto = () => {
         category: document.getElementById("category").value,
         status: document.getElementById("status").value === "true"
     };
-    
-    socket.emit("agregarProducto", producto);
+
+    socket.emit("addProduct", product);
 };
