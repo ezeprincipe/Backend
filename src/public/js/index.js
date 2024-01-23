@@ -6,7 +6,7 @@ socket.on("products", (data) => {
 
 // Function to render the products table:
 const renderProducts = (products) => {
-    const productsContainer = document.getElementById("productsContainer");
+    const productsContainer = document.getElementById("contenedorProductos");
     productsContainer.innerHTML = "";
 
     products.forEach(item => {
@@ -14,10 +14,10 @@ const renderProducts = (products) => {
         card.classList.add("card");
         // Add button to delete product:
         card.innerHTML = `
-                <p>Id ${item.id} </p>
-                <p>Title ${item.title} </p>
-                <p>Price ${item.price} </p>
-                <button> Delete Product </button>
+            <p>Id ${item.id} </p>
+            <p>Title ${item.title} </p>
+            <p>Price ${item.price} </p>
+            <button> Delete Product </button>
         `;
         productsContainer.appendChild(card);
 
@@ -34,8 +34,7 @@ const deleteProduct = (id) => {
 }
 
 // Add product:
-
-document.getElementById("btnSend").addEventListener("click", () => {
+document.getElementById("btnEnviar").addEventListener("click", () => {
     addProduct();
 });
 

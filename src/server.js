@@ -5,6 +5,7 @@ const exphbs = require('express-handlebars');
 const path = require('path');
 const productsRouter = require('./routes/products.router');
 const cartsRouter = require('./routes/carts.router');
+const viewsRouter = require('./routes/views.router'); // Import views.router.js
 const CartManager = require('./controllers/CartManager');
 const ProductManager = require('./controllers/ProductManager');
 
@@ -39,40 +40,35 @@ app.use('/api/products', productsRouter);
 // Cart routes
 app.use('/api/carts', cartsRouter);
 
+// Views routes
+app.use('/', viewsRouter);
+
 // Configure socket events
-io.on('connection', (socket) => {
+io.on('connection', async (socket) => {
   console.log('User connected');
 
   // Configure socket events here
 
   // For example, send a message to the client on connection
   socket.emit('message', 'Welcome!');
+  socket.emit('products', await productManager.getProducts());
 
   // Listen to client events
   socket.on('clientEvent', (data) => {
     console.log('Client event:', data);
   });
-});
 
-// Main route with a specific message
-app.get('/', async (req, res) => {
-  try {
-    // Logic to get data needed for the home page
-    const products = await productManager.getProducts();
+  socket.on('deleteProduct', async (id) => {
+    await productManager.deleteProduct(id);
+    // Enviamos el array de productos actualizado a todos los productos:
+    io.sockets.emit('products', await productManager.getProducts());
+  });
 
-    // Render the 'index' view and pass the necessary data
-    res.render('index', { pageTitle: 'Home', products });
-  } catch (error) {
-    console.error("Error fetching products", error);
-    res.status(500).json({
-      error: "Internal server error"
-    });
-  }
-});
-
-// Route rendering the view with Socket.IO
-app.get('/realtime', (req, res) => {
-  res.render('realtime');
+  socket.on('addProduct', async (product) => {
+    await productManager.addProduct(product);
+    // Enviamos el array de productos actualizado a todos los productos:
+    io.sockets.emit('products', await productManager.getProducts());
+  });
 });
 
 // Start the server

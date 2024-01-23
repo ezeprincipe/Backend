@@ -91,14 +91,17 @@ class ProductManager {
   }
 
   async getProducts() {
+
     try {
-      return await this.readFromFile();
+      const JSONproducts = await this.readFromFile();
+      console.log(JSONproducts);
+      return JSONproducts;
     } catch (error) {
       console.error('Error getting products', error);
       throw error;
     }
-  }
 
+  } 
   async getProductById(id) {
     try {
       const arrayProducts = await this.readFromFile();
@@ -127,9 +130,11 @@ class ProductManager {
   }
 
   async readFromFile() {
+
     try {
       const data = await fs.readFile(this.path, 'utf-8');
-      return JSON.parse(data);
+      const JSONproducts = JSON.parse(data);
+      return JSONproducts;
     } catch (error) {
       return [];
     }
