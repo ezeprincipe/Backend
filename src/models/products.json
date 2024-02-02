@@ -119,18 +119,5 @@
     "stock": 10,
     "category": "Electronics",
     "status": "Available"
-  },
-  {
-    "id": 12,
-    "title": "mouse",
-    "description": "inalámbrico ",
-    "price": "150000",
-    "img": "Sin Imagen",
-    "code": "2547dfr43",
-    "stock": "23",
-    "category": "tecnología ",
-    "status": "Available",
-    "thumbnail": "assets/undefined"
   }
- 
 ]

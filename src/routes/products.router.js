@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const ProductManager = require('../controllers/ProductManager.js');
-const productManager = new ProductManager('./src/models/products.json');
+const productManager = new ProductManager("./src/models/products.json");
 
 router.post('/add', async (req, res) => {
   try {

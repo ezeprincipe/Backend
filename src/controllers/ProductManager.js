@@ -16,8 +16,8 @@ class ProductManager {
       // Automatic ID generation
       this.ultId = arrayProducts.length > 0 ? Math.max(...arrayProducts.map(p => p.id)) : this.ultId;
 
-      if (!newProduct.title || !newProduct.description || !newProduct.price || !newProduct.code || !newProduct.stock) {
-        console.error("All fields are mandatory");
+      if (!newProduct.title || !newProduct.description || !newProduct.price || !newProduct.code || !newProduct.stock || !newProduct.category) {
+        console.error("All fields (except thumbnail) are mandatory");
         return;
       }
 
@@ -74,10 +74,11 @@ class ProductManager {
       const arrayProducts = await this.readFromFile();
       const initialLength = arrayProducts.length;
 
-      this.products = arrayProducts.filter(product => product.id !== id);
+      // Filter products based on the provided ID
+      const updatedProducts = arrayProducts.filter(product => product.id !== id);
 
-      if (arrayProducts.length < initialLength) {
-        await this.writeToFile(arrayProducts);
+      if (updatedProducts.length < initialLength) {
+        await this.writeToFile(updatedProducts);
         console.log("Product deleted successfully");
         return { success: true, message: "Product deleted successfully" };
       } else {
@@ -91,7 +92,6 @@ class ProductManager {
   }
 
   async getProducts() {
-
     try {
       const JSONproducts = await this.readFromFile();
       console.log(JSONproducts);
@@ -100,7 +100,6 @@ class ProductManager {
       console.error('Error getting products', error);
       throw error;
     }
-
   } 
   async getProductById(id) {
     try {
@@ -130,7 +129,6 @@ class ProductManager {
   }
 
   async readFromFile() {
-
     try {
       const data = await fs.readFile(this.path, 'utf-8');
       const JSONproducts = JSON.parse(data);
